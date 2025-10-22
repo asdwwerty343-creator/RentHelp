@@ -1,0 +1,103 @@
+
+/* ======== Общие стили ======== */
+body {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #fffaf5;
+  color: #333;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ======== Шапка ======== */
+header {
+  background: #ffead2;
+  padding: 20px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #3d2b1f;
+  border-bottom: 2px solid #f0cba5;
+}
+
+/* ======== Контейнер ======== */
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ======== Разделы ======== */
+section {
+  margin-bottom: 60px;
+}
+
+h2 {
+  font-size: 28px;
+  color: #3d2b1f;
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: 18px;
+  color: #444;
+}
+
+/* ======== Кнопка ======== */
+.btn {
+  display: inline-block;
+  background: #ffb677;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 8px;
+  margin-top: 15px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #ff9e4d;
+}
+
+/* ======== Футер ======== */
+footer {
+  background: #3d2b1f;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+/* ======== Мобильная адаптация ======== */
+@media (max-width: 768px) {
+  header {
+    font-size: 22px;
+    padding: 15px;
+  }
+
+  .container {
+    padding: 0 15px;
+    margin: 25px auto;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+    padding: 14px 0;
+    font-size: 16px;
+  }
+
+  footer {
+    font-size: 13px;
+  }
+}
