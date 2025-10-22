@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>RentHelp — Подбор квартир онлайн</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="header">
+  <div class="brand">
+    <img src="logo.png" alt="RentHelp" class="logo-img">
+    <div>
+      <div class="site-title">RentHelp</div>
+      <div class="small">Онлайн‑подбор квартир</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="about.html">О нас</a>
+    <a href="how.html">Как это работает</a>
+    <a href="reviews.html">Отзывы</a>
+    <a href="list.html">Узнать варианты</a>
+  </nav>
+</header>
+
+<section class="hero" aria-hidden="false">
+  <div class="container">
+    <div class="card" style="text-align:center;">
+      <h1>Узнать варианты</h1>
+      <p class="lead">Мы собираем актуальные объявления по крупным городам России и готовим персональную подборку под ваши требования.</p>
+      <div>
+        <a class="btn" href="list.html">Узнать варианты</a>
+        <a class="btn ghost" href="how.html">Как это работает</a>
+      </div>
+      <div class="note">Оплата переводом по номеру карты будет: <strong>2200 2711 1098 9341</strong>. Код доступа — <strong>1889</strong>.</div>
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-top:18px;">
+  <div class="card">
+    <h2>Почему RentHelp</h2>
+    <p class="lead">Мы экономим ваше время: ежедневно анализируем рынок и отбираем только рабочие варианты.</p>
+
+    <section style="margin-top:16px">
+      <h3>Отзывы</h3>
+      <div class="reviews" id="reviewsPreview"></div>
+      <div style="text-align:right;margin-top:10px"><a class="btn ghost" href="reviews.html">Все отзывы</a></div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">© 2025 RentHelp — консультационные услуги по подбору квартир. Оплата переводом на карту.</footer>
+
+<!-- Offer modal (ONLY on index) -->
+<div id="offerModal" class="modal show"><div class="modal-box"><h2>ПУБЛИЧНАЯ ОФЕРТА</h2>
+<p><strong>Настоящая Публичная оферта</strong> (далее — «Оферта») является официальным предложением физического лица, оказывающего консультационные услуги по подбору объектов аренды жилой недвижимости, любому дееспособному лицу (далее — «Заказчик») заключить договор возмездного оказания услуг в соответствии со статьями 437 и 438 Гражданского кодекса Российской Федерации.</p>
+<h3>1. Предмет оферты</h3>
+<p>Исполнитель оказывает Заказчику консультационные услуги, связанные с предоставлением информации об актуальных вариантах аренды квартир и анализом предложений, доступных на рынке недвижимости. Услуги оказываются в онлайн-формате на сайте RentHelp, без личных встреч и выездов.</p>
+<h3>2. Условия оказания услуг</h3>
+<p>2.1. Услуги предоставляются после поступления оплаты в полном объёме.<br>2.2. Факт оплаты подтверждает согласие Заказчика со всеми условиями настоящей Оферты.<br>2.3. Возврат денежных средств не предусмотрен, вне зависимости от того, воспользовался ли Заказчик полученной информацией.</p>
+<h3>3. Ответственность сторон</h3>
+<p>3.1. Исполнитель не несёт ответственности за последующие действия Заказчика по использованию предоставленной информации.<br>3.2. Исполнитель гарантирует предоставление услуг в полном объёме в соответствии с условиями настоящей Оферты.</p>
+<h3>4. Заключение договора</h3>
+<p>Нажимая кнопку <strong>«Согласен»</strong>, Заказчик подтверждает, что ознакомлен с условиями настоящей Оферты и принимает их в полном объёме.</p>
+<div style="text-align:right;margin-top:12px"><button class="btn" onclick="acceptOffer()">✅ Согласен</button> <button class="btn ghost" onclick="denyOffer()">❌ Не согласен</button></div>
+</div></div>
+
+<script>
+const OFFER_KEY = 'renthelp_offer_accepted_v2';
+const REVIEWS = [
+  {stars:5,text:"Невероятно удобно — получил подборку за пару часов и быстро снял квартиру.", name:"Алексей, Москва"},
+  {stars:5,text:"Очень профессионально: варианты релевантны, ничего лишнего.", name:"Екатерина, Санкт-Петербург"},
+  {stars:5,text:"Сэкономил кучу времени, рекомендую Renthelp всем знакомым.", name:"Иван, Казань"},
+  {stars:5,text:"Подборка супер — всё актуально. Спасибо!", name:"Марина, Новосибирск"},
+  {stars:4,text:"Хорошая работа, поддержка ответила быстро.", name:"Дмитрий, Екатеринбург"},
+  {stars:5,text:"Понравилось, что всё дистанционно и без лишних звонков.", name:"Ольга, Самара"},
+  {stars:5,text:"Сервис помог найти идеальную квартиру для семьи.", name:"Сергей, Краснодар"},
+  {stars:5,text:"Качественно и быстро — стоимость себя оправдала.", name:"Наталья, Пермь"},
+  {stars:4,text:"Много свежих объявлений, удобно смотреть по городам.", name:"Павел, Челябинск"},
+  {stars:5,text:"Отличный сервис — советую всем, кто ищет жильё.", name:"Анна, Ростов-на-Дону"}
+];
+
+function acceptOffer(){ localStorage.setItem(OFFER_KEY,'1'); document.getElementById('offerModal').classList.remove('show'); }
+function denyOffer(){ alert('Без согласия с офертой доступ закрыт.'); window.location.href='about:blank'; }
+
+function renderReviews(){ const root=document.getElementById('reviewsPreview'); REVIEWS.forEach(r=>{ const div=document.createElement('div'); div.className='review'; div.innerHTML=`<div class="stars">${'★'.repeat(r.stars)}</div><div>${r.text}</div><div class="small">${r.name}</div>`; root.appendChild(div); }); }
+
+window.addEventListener('DOMContentLoaded',()=>{ if(localStorage.getItem(OFFER_KEY)==='1') document.getElementById('offerModal').classList.remove('show'); renderReviews(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Объявления — RentHelp</title><link rel="stylesheet" href="styles.css"></head><body><header class="header">
+  <div class="brand">
+    <img src="logo.png" alt="RentHelp" class="logo-img">
+    <div>
+      <div class="site-title">RentHelp</div>
+      <div class="small">Онлайн‑подбор квартир</div>
+    </div>
+  </div>
+  <nav class="nav">
+    <a href="about.html">О нас</a>
+    <a href="how.html">Как это работает</a>
+    <a href="reviews.html">Отзывы</a>
+    <a href="list.html">Узнать варианты</a>
+  </nav>
+</header>
+
+<main class="container"><div class="card"><h1>Объявления и оплата</h1>
+<p class="lead">Чтобы открыть подборку объявлений, оплатите консультацию. Сейчас оплата в системе временно не настроена — ниже инструкция по переводу на карту и поле для подтверждения.</p>
+
+<h3>Как оплатить</h3>
+<ul>
+<li>Переведите <strong>6999 ₽</strong> на карту: <strong>2200 2711 1098 9341</strong></li>
+<li>В назначении платежа укажите: «Оплата консультации RentHelp»</li>
+<li>После перевода нажмите «Я оплатил» и введите код, который пришлёт менеджер (для теста — <strong>1889</strong>).</li>
+</ul>
+
+<div style="margin-top:12px">
+  <a class="btn" onclick="openPayment()">Я оплатил — ввести код</a>
+  <a class="btn ghost" href="index.html">Вернуться</a>
+</div>
+
+<div id="codeArea" style="display:none;margin-top:16px">
+  <input id="codeInput" class="input" placeholder="Введите код доступа"/>
+  <button class="btn" onclick="verifyCode()">Подтвердить</button>
+  <div class="note">Код даётся после подтверждения оплаты менеджером — тестовый код: 1889.</div>
+</div>
+
+<div id="accessBlock" style="display:none;margin-top:18px">
+  <h3>Подборки по городам</h3>
+  <div class="links" id="linksList"></div>
+</div>
+
+</div></main>
+<footer class="footer">© 2025 RentHelp</footer>
+
+<script>
+const ACCESS_KEY='renthelp_access_granted_v2';
+const OFFER_KEY='renthelp_offer_accepted_v2';
+const ACCESS_CODE='1889';
+const CITIES = {
+  "Москва":"https://realty.yandex.ru/moskva/snyat/kvartira/",
+  "Санкт-Петербург":"https://realty.yandex.ru/sankt-peterburg/snyat/kvartira/",
+  "Новосибирск":"https://realty.yandex.ru/novosibirsk/snyat/kvartira/",
+  "Казань":"https://realty.yandex.ru/kazan/snyat/kvartira/",
+  "Екатеринбург":"https://realty.yandex.ru/ekaterinburg/snyat/kvartira/",
+  "Пермь":"https://realty.yandex.ru/perm/snyat/kvartira/",
+  "Челябинск":"https://realty.yandex.ru/chelyabinsk/snyat/kvartira/",
+  "Краснодар":"https://realty.yandex.ru/krasnodar/snyat/kvartira/",
+  "Самара":"https://realty.yandex.ru/samara/snyat/kvartira/",
+  "Нижний Новгород":"https://realty.yandex.ru/nizhniy-novgorod/snyat/kvartira/",
+  "Омск":"https://realty.yandex.ru/omsk/snyat/kvartira/",
+  "Ростов-на-Дону":"https://realty.yandex.ru/rostov-na-donu/snyat/kvartira/"
+};
+
+function openPayment(){
+  document.getElementById('codeArea').style.display='block';
+  document.getElementById('codeInput').focus();
+}
+function verifyCode(){
+  const v=(document.getElementById('codeInput').value||'').trim();
+  if(!v){ alert('Введите код'); return; }
+  if(v===ACCESS_CODE){ localStorage.setItem(ACCESS_KEY,'1'); grantAccess(); alert('Доступ открыт'); }
+  else alert('Неверный код');
+}
+function grantAccess(){
+  document.getElementById('accessBlock').style.display='block';
+  document.getElementById('codeArea').style.display='none';
+  const root=document.getElementById('linksList'); root.innerHTML='';
+  for(const city in CITIES){ const a=document.createElement('a'); a.href=CITIES[city]; a.target='_blank'; a.textContent=city+' — открыть подборку'; root.appendChild(a); }
+}
+function acceptOffer(){ localStorage.setItem(OFFER_KEY,'1'); document.getElementById('offerModal').classList.remove('show'); }
+function denyOffer(){ alert('Без согласия с офертой доступ закрыт.'); window.location.href='about:blank'; }
+if(localStorage.getItem(OFFER_KEY)==='1') document.getElementById('offerModal')?.classList.remove('show');
+if(localStorage.getItem(ACCESS_KEY)==='1') grantAccess();
+</script>
+</body></html>
